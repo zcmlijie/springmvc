@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zcm.springmvc.dao.TbdeptMapper" >
+  <resultMap id="BaseResultMap" type="com.zcm.springmvc.entity.Tbdept" >
+    <id column="did" property="did" jdbcType="INTEGER" />
+    <result column="dname" property="dname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    did, dname
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tbdept
+    where did = #{did,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tbdept
+    where did = #{did,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zcm.springmvc.entity.Tbdept" useGeneratedKeys="true" keyProperty="did">
+
+    insert into tbdept (did, dname)
+    values (#{did,jdbcType=INTEGER}, #{dname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zcm.springmvc.entity.Tbdept" >
+    insert into tbdept
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="did != null" >
+        did,
+      </if>
+      <if test="dname != null" >
+        dname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="did != null" >
+        #{did,jdbcType=INTEGER},
+      </if>
+      <if test="dname != null" >
+        #{dname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zcm.springmvc.entity.Tbdept" >
+    update tbdept
+    <set >
+      <if test="dname != null" >
+        dname = #{dname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where did = #{did,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zcm.springmvc.entity.Tbdept" >
+    update tbdept
+    set dname = #{dname,jdbcType=VARCHAR}
+    where did = #{did,jdbcType=INTEGER}
+  </update>
+  <!--批量删除-->
+  <delete id="deleteBatch" parameterType="java.lang.Integer">
+ delete  from tbdept where did in
+ <foreach collection="list" item="list" index="index" open="(" separator="," close=")" >
+  #{list}
+ </foreach>
+  </delete>
+  <!--多表分页查询-->
+  <select id="findByPage" parameterType="Map" resultType="com.zcm.springmvc.entity.TbdeptEmpVo">
+  select emp.eid, emp.did, emp.age, emp.gende, emp.workdate, emp.password, emp.ename,dept.dname
+   from tdemp emp join tbdept dept on dept.did=emp.did
+  <where>
+    1=1
+    <if test="did!=null">
+      and dept.did=#{did}
+    </if>
+  </where>
+    <if test="start!=null and size!=null">
+      limit #{start},#{size}
+    </if>
+  </select>
+  <!--多表查询总条数-->
+  <select id="pageCount" resultType="int" parameterType="java.lang.Integer">
+    select count(*) from tdemp emp join tbdept dept on dept.did=emp.did
+    <where>
+      1=1
+      <if test="did!=null">
+        and dept.did=#{did}
+      </if>
+    </where>
+  </select>
+</mapper>

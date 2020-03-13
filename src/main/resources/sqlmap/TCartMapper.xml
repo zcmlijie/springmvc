@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zcm.springmvc.dao.TCartMapper" >
+  <resultMap id="BaseResultMap" type="com.zcm.springmvc.entity.TCart" >
+    <id column="cid" property="cid" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="BIGINT" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="created_user" property="createdUser" jdbcType="VARCHAR" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="modified_user" property="modifiedUser" jdbcType="VARCHAR" />
+    <result column="modified_time" property="modifiedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    cid, uid, pid, price, num, created_user, created_time, modified_user, modified_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_cart
+    where cid = #{cid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_cart
+    where cid = #{cid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zcm.springmvc.entity.TCart" >
+    insert into t_cart (cid, uid, pid, 
+      price, num, created_user, 
+      created_time, modified_user, modified_time
+      )
+    values (#{cid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, 
+      #{price,jdbcType=BIGINT}, #{num,jdbcType=INTEGER}, #{createdUser,jdbcType=VARCHAR}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{modifiedUser,jdbcType=VARCHAR}, #{modifiedTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zcm.springmvc.entity.TCart" >
+    insert into t_cart
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        cid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="pid != null" >
+        pid,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="createdUser != null" >
+        created_user,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="modifiedUser != null" >
+        modified_user,
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cid != null" >
+        #{cid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=BIGINT},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=INTEGER},
+      </if>
+      <if test="createdUser != null" >
+        #{createdUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedUser != null" >
+        #{modifiedUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedTime != null" >
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zcm.springmvc.entity.TCart" >
+    update t_cart
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="pid != null" >
+        pid = #{pid,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=BIGINT},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=INTEGER},
+      </if>
+      <if test="createdUser != null" >
+        created_user = #{createdUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedUser != null" >
+        modified_user = #{modifiedUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zcm.springmvc.entity.TCart" >
+    update t_cart
+    set uid = #{uid,jdbcType=INTEGER},
+      pid = #{pid,jdbcType=INTEGER},
+      price = #{price,jdbcType=BIGINT},
+      num = #{num,jdbcType=INTEGER},
+      created_user = #{createdUser,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      modified_user = #{modifiedUser,jdbcType=VARCHAR},
+      modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
+    where cid = #{cid,jdbcType=INTEGER}
+  </update>
+  <!--该用户是否把该商品添加到购物车了-->
+  <select id="findByUidandPid" resultType="com.zcm.springmvc.entity.TCart">
+    select <include refid="Base_Column_List"/>
+    from t_cart
+    where uid=#{uid}
+    and pid=#{pid}
+  </select>
+  
+  <!--修改购物车商品的数量-->
+  <update id="updateByCid" parameterType="com.zcm.springmvc.entity.TCart">
+    update t_cart set
+    num=#{num},
+    modified_user = #{modifiedUser},
+    modified_time = #{modifiedTime}
+    where
+    cid=#{cid}
+  </update>
+
+  <!--展示该用户的购物车-->
+  <select id="findByCidList" resultType="com.zcm.springmvc.entity.CartVo"
+          parameterType="Map">
+   select cd.cid,cd.uid,cd.pid,cd.price,cd.num
+   , cp.title,cp.price as realPrice,cp.image
+   from t_cart cd left join t_product cp on
+   cd.pid=cp.id
+   where cd.uid=#{uid}
+   order by cd.created_time desc limit
+   #{start},#{size};
+  </select>
+
+  <!--查询该用户购物车的总条数-->
+  <select id="countRow" resultType="java.lang.Integer">
+    select count(*) from t_cart cd left join t_product cp
+    on cd.pid=cp.id
+    where cd.uid=#{uid}
+    order by cd.created_time desc ;
+  </select>
+
+  <!--批量勾选购物车的商品-->
+  <select id="findByCids" resultType="com.zcm.springmvc.entity.CartVo" parameterType="Map">
+    select cd.cid,cd.uid,cd.pid,cd.price,cd.num,
+    cp.title,cp.price as realPrice,cp.image
+   from t_cart cd left join t_product cp on
+   cd.pid=cp.id
+   where cd.cid in
+   <foreach collection="cids" item="list" index="index" open="(" close=")" separator=",">
+     #{list}
+   </foreach>
+   order  by cd.created_time desc
+   limit #{start},#{size}
+   ;
+  </select>
+  <!--勾选总数量-->
+  <select id="countFindByCids" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+     select count(*)
+       from t_cart cd left join t_product cp on
+       cd.pid=cp.id
+       where cd.cid in
+   <foreach collection="list" index="index" item="list"
+            open="(" close=")" separator=",">
+     #{list}
+   </foreach>
+    order by cd.created_time desc ;
+  </select>
+</mapper>

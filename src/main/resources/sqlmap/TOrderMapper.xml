@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zcm.springmvc.dao.TOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.zcm.springmvc.entity.TOrder" >
+    <id column="oid" property="oid" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="recv_name" property="recvName" jdbcType="VARCHAR" />
+    <result column="recv_phone" property="recvPhone" jdbcType="VARCHAR" />
+    <result column="recv_province" property="recvProvince" jdbcType="VARCHAR" />
+    <result column="recv_city" property="recvCity" jdbcType="VARCHAR" />
+    <result column="recv_area" property="recvArea" jdbcType="VARCHAR" />
+    <result column="recv_address" property="recvAddress" jdbcType="VARCHAR" />
+    <result column="total_price" property="totalPrice" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="created_user" property="createdUser" jdbcType="VARCHAR" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="modified_user" property="modifiedUser" jdbcType="VARCHAR" />
+    <result column="modified_time" property="modifiedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    oid, uid, recv_name, recv_phone, recv_province, recv_city, recv_area, recv_address, 
+    total_price, status, order_time, pay_time, created_user, created_time, modified_user, 
+    modified_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_order
+    where oid = #{oid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_order
+    where oid = #{oid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zcm.springmvc.entity.TOrder" useGeneratedKeys="true"
+    keyProperty="oid" keyColumn="">
+    insert into t_order (oid, uid, recv_name, 
+      recv_phone, recv_province, recv_city, 
+      recv_area, recv_address, total_price, 
+      status, order_time, pay_time, 
+      created_user, created_time, modified_user, 
+      modified_time)
+    values (#{oid,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{recvName,jdbcType=VARCHAR}, 
+      #{recvPhone,jdbcType=VARCHAR}, #{recvProvince,jdbcType=VARCHAR}, #{recvCity,jdbcType=VARCHAR}, 
+      #{recvArea,jdbcType=VARCHAR}, #{recvAddress,jdbcType=VARCHAR}, #{totalPrice,jdbcType=BIGINT}, 
+      #{status,jdbcType=INTEGER}, #{orderTime,jdbcType=TIMESTAMP}, #{payTime,jdbcType=TIMESTAMP}, 
+      #{createdUser,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{modifiedUser,jdbcType=VARCHAR}, 
+      #{modifiedTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zcm.springmvc.entity.TOrder" >
+    insert into t_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="oid != null" >
+        oid,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="recvName != null" >
+        recv_name,
+      </if>
+      <if test="recvPhone != null" >
+        recv_phone,
+      </if>
+      <if test="recvProvince != null" >
+        recv_province,
+      </if>
+      <if test="recvCity != null" >
+        recv_city,
+      </if>
+      <if test="recvArea != null" >
+        recv_area,
+      </if>
+      <if test="recvAddress != null" >
+        recv_address,
+      </if>
+      <if test="totalPrice != null" >
+        total_price,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="orderTime != null" >
+        order_time,
+      </if>
+      <if test="payTime != null" >
+        pay_time,
+      </if>
+      <if test="createdUser != null" >
+        created_user,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="modifiedUser != null" >
+        modified_user,
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="oid != null" >
+        #{oid,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="recvName != null" >
+        #{recvName,jdbcType=VARCHAR},
+      </if>
+      <if test="recvPhone != null" >
+        #{recvPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="recvProvince != null" >
+        #{recvProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="recvCity != null" >
+        #{recvCity,jdbcType=VARCHAR},
+      </if>
+      <if test="recvArea != null" >
+        #{recvArea,jdbcType=VARCHAR},
+      </if>
+      <if test="recvAddress != null" >
+        #{recvAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="totalPrice != null" >
+        #{totalPrice,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="orderTime != null" >
+        #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null" >
+        #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdUser != null" >
+        #{createdUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedUser != null" >
+        #{modifiedUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedTime != null" >
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zcm.springmvc.entity.TOrder" >
+    update t_order
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="recvName != null" >
+        recv_name = #{recvName,jdbcType=VARCHAR},
+      </if>
+      <if test="recvPhone != null" >
+        recv_phone = #{recvPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="recvProvince != null" >
+        recv_province = #{recvProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="recvCity != null" >
+        recv_city = #{recvCity,jdbcType=VARCHAR},
+      </if>
+      <if test="recvArea != null" >
+        recv_area = #{recvArea,jdbcType=VARCHAR},
+      </if>
+      <if test="recvAddress != null" >
+        recv_address = #{recvAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="totalPrice != null" >
+        total_price = #{totalPrice,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="orderTime != null" >
+        order_time = #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payTime != null" >
+        pay_time = #{payTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdUser != null" >
+        created_user = #{createdUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedUser != null" >
+        modified_user = #{modifiedUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zcm.springmvc.entity.TOrder" >
+    update t_order
+    set uid = #{uid,jdbcType=INTEGER},
+      recv_name = #{recvName,jdbcType=VARCHAR},
+      recv_phone = #{recvPhone,jdbcType=VARCHAR},
+      recv_province = #{recvProvince,jdbcType=VARCHAR},
+      recv_city = #{recvCity,jdbcType=VARCHAR},
+      recv_area = #{recvArea,jdbcType=VARCHAR},
+      recv_address = #{recvAddress,jdbcType=VARCHAR},
+      total_price = #{totalPrice,jdbcType=BIGINT},
+      status = #{status,jdbcType=INTEGER},
+      order_time = #{orderTime,jdbcType=TIMESTAMP},
+      pay_time = #{payTime,jdbcType=TIMESTAMP},
+      created_user = #{createdUser,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      modified_user = #{modifiedUser,jdbcType=VARCHAR},
+      modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
+    where oid = #{oid,jdbcType=INTEGER}
+  </update>
+</mapper>

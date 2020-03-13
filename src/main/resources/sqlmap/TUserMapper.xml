@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zcm.springmvc.dao.TUserMapper" >
+  <resultMap id="BaseResultMap" type="com.zcm.springmvc.entity.TUser" >
+    <id column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="CHAR" />
+    <result column="salt" property="salt" jdbcType="CHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="INTEGER" />
+    <result column="avatar" property="avatar" jdbcType="VARCHAR" />
+    <result column="is_delete" property="isDelete" jdbcType="INTEGER" />
+    <result column="created_user" property="createdUser" jdbcType="VARCHAR" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="modified_user" property="modifiedUser" jdbcType="VARCHAR" />
+    <result column="modified_time" property="modifiedTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    uid, username, password, salt, phone, email, gender, avatar, is_delete, created_user, 
+    created_time, modified_user, modified_time
+  </sql>
+  <!--根据uid查询用户信息-->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where uid = #{uid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_user
+    where uid = #{uid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zcm.springmvc.entity.TUser" >
+    insert into t_user (uid, username, password, 
+      salt, phone, email, gender, 
+      avatar, is_delete, created_user, 
+      created_time, modified_user, modified_time
+      )
+    values (#{uid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=CHAR}, 
+      #{salt,jdbcType=CHAR}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, 
+      #{avatar,jdbcType=VARCHAR}, #{isDelete,jdbcType=INTEGER}, #{createdUser,jdbcType=VARCHAR}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{modifiedUser,jdbcType=VARCHAR}, #{modifiedTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zcm.springmvc.entity.TUser" >
+    insert into t_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="avatar != null" >
+        avatar,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+      <if test="createdUser != null" >
+        created_user,
+      </if>
+      <if test="createdTime != null" >
+        created_time,
+      </if>
+      <if test="modifiedUser != null" >
+        modified_user,
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=CHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=CHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="avatar != null" >
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createdUser != null" >
+        #{createdUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedUser != null" >
+        #{modifiedUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedTime != null" >
+        #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zcm.springmvc.entity.TUser" >
+    update t_user
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=CHAR},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=CHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="avatar != null" >
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createdUser != null" >
+        created_user = #{createdUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifiedUser != null" >
+        modified_user = #{modifiedUser,jdbcType=VARCHAR},
+      </if>
+      <if test="modifiedTime != null" >
+        modified_time = #{modifiedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where uid = #{uid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zcm.springmvc.entity.TUser" >
+    update t_user
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=CHAR},
+      salt = #{salt,jdbcType=CHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=INTEGER},
+      created_user = #{createdUser,jdbcType=VARCHAR},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      modified_user = #{modifiedUser,jdbcType=VARCHAR},
+      modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
+    where uid = #{uid,jdbcType=INTEGER}
+  </update>
+  <!--根据用户名查询数据-->
+  <select id="seletByName" resultType="com.zcm.springmvc.entity.TUser">
+    select uid, username, password,
+    salt, phone, email, gender,
+    avatar, is_delete as isDelete, created_user AS createdUser,
+    created_time AS createdTime, modified_user as modifiedUser, modified_time as modifiedTime
+    from t_user where
+    <if test="name!=null and name!=''">
+      username=#{name};
+    </if> 
+  </select>
+  <!--修改用户信息-->
+  <update id="updateInfoByUid" parameterType="com.zcm.springmvc.entity.TUser">
+    update  t_user set 
+    <if test="phone!=null">
+      phone=#{phone},
+    </if>
+    <if test="email!=null">
+      email=#{email},
+    </if>
+    <if test="gender !=null">
+      gender=#{gender},
+    </if>
+    <if test="modifiedUser!=null">
+      modified_user=#{modifiedUser},
+    </if>
+
+    modified_time=#{modifiedTime}
+    where
+    uid=#{uid}
+  </update>
+  <!--修改密码
+  @Param("uid") Integer uid,
+            @Param("password") String password,
+            @Param("modifiedUser") String modifiedUser,
+            @Param("modifiedTime") Date modifiedTime);
+            -->
+  <update id="updatePasswordByUid" parameterType="com.zcm.springmvc.entity.TUser">
+    update t_user set password=#{password},modified_user=#{modifiedUser},
+    modified_time=#{modifiedTime}
+    where uid=#{uid}
+  </update>
+
+  <!--修改图片updateAvatarByUid(@Param("uid") Integer uid,
+                            @Param("avatar") String avatar,
+                            @Param("modifiedUser") String modifiedUser,
+                            @Param("modifiedTime") Date modifiedTime);-->
+  <update id="updateAvatarByUid" parameterType="com.zcm.springmvc.entity.TUser">
+  update t_user set avatar=#{avatar},modified_user=#{modifiedUser},
+  modified_time=#{modifiedTime}
+  where uid=#{uid}
+  </update>
+</mapper>
